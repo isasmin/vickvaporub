@@ -6,7 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    opa
+<h1>toma essa seu lixo </h1>
+<a href="formCliente.php" >Formulário do Cliente</a> <br><br>
+<a href="formProduto.php" >Formulário do Produto</a> <br><br>
+<a href="listarCliente.php" >Listar Clientes</a> <br><br>
+<a href="listarProduto.php" >Listar Produtos</a> <br><br>
+
 </body>
 </html>
 
