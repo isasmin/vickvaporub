@@ -1,7 +1,4 @@
-<?php 
-// Verifica se o usuário está logado, impedindo acesso não autorizado
-require_once "../controle/verificaLogado.php";
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,9 +62,7 @@ require_once "../controle/verificaLogado.php";
     </table>
     
     <!-- Link para voltar à página inicial -->
-    <a href="home.php" class="btn btn-secondary float-start">Voltar para Início</a>
+    <a href="index.php" class="btn btn-secondary float-start">Voltar para Início</a>
 </body>
-
+        
 </html>
-
-quantidade
