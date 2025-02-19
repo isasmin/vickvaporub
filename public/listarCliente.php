@@ -39,8 +39,7 @@
             $nome = $linha['nome']; // Obtém o nome do produto
             $cpf = $linha['cpf']; // Obtém o tipo do produto
             $endereco = $linha['endereco']; // Obtém o preco do produto
-            $quantidade = $linha['quantidade']; // Obtém a quantidade do produto
-
+    
         
             // Exibe os dados do produto na tabela
             echo "<tbody>";
