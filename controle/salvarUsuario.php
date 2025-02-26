@@ -8,7 +8,7 @@ $senha = $_POST['senha'];
 
 $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
-$sql = "INSERT INTO tb_usuario (nome, email, senha) VALUES ('$nome', '$email', '$senha_hash')";
+$sql = "INSERT INTO usuario (nome, email, senha) VALUES ('$nome', '$email', '$senha_hash')";
 
 mysqli_query($conexao, $sql);
 
