@@ -11,4 +11,6 @@ $quantidade = $_POST['quantidade'];
 $sql = "INSERT INTO tb_produto (nome, tipo, preco_compra, quantidade) VALUES ('$nome', '$tipo', '$preco_compra', '$quantidade')";
 
 mysqli_query($conexao, $sql);
+
+
 ?>
