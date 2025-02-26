@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="salvarCliente.php" method="POST">
+    <form action="../controle/salvarCliente.php" method="POST">
         Nome: <br>
         <input type="text" name="nome"> <br><br>
         CPF: <br>

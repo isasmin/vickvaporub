@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="salvarProduto.php" method="POST">
+    <form action="../controle/salvarProduto.php" method="POST">
         Nome: <br>
         <input type="text" name="nome"> <br><br>
         Tipo: <br>
