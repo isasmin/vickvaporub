@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="salvarUsuario.php" method="post">
+    <form action="../controle/salvarUsuario.php" method="post">
         Nome: <br>
         <input type="text" name="nome"> <br><br>
         E-mail: <br>
