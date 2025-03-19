@@ -18,7 +18,7 @@
             <a href="formProduto.php">Cadastrar novo produto</a>
         </li>
         <li>
-            <a href="listarProduto.php">Lista de produtos cadastrados</a>
+            <a href="listarProdutos.php">Lista de produtos cadastrados</a>
         </li>
     </ul>
 </body>
