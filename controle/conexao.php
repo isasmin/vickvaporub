@@ -1,7 +1,9 @@
 <?php
 $servidor = 'db';
 $usuario = 'root';
-$password = '123';
+$senha = '123';
 $banco = 'vickvaporub';
 
-$conexao = mysqli_connect($servidor, $usuario, $password, $banco);
+$conexao = mysqli_connect($servidor, $usuario, $senha, $banco);
+
+?>
