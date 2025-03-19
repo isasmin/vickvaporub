@@ -12,13 +12,13 @@
         <a href="formCliente.php">Cadastrar novo cliente</a>
         </li>
         <li>
-            <a href="listarClientes.php">Lista de clientes cadastrados</a>
+            <a href="listarCliente.php">Lista de clientes cadastrados</a>
         </li>
         <li>
             <a href="formProduto.php">Cadastrar novo produto</a>
         </li>
         <li>
-            <a href="listarProdutos.php">Lista de produtos cadastrados</a>
+            <a href="listarProduto.php">Lista de produtos cadastrados</a>
         </li>
     </ul>
 </body>
