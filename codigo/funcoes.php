@@ -34,10 +34,14 @@ function salvarCliente($conexao, $nome, $cpf, $endereco) {
     
     mysqli_stmt_bind_param($comando, 'sss', $nome, $cpf, $endereco);
     
-    $funcionou = mysqli_stmt_execute($comando);
+    mysqli_stmt_execute($comando);
     
+    $idcliente = mysqli_stmt_insert_id($comando);
+    //retorna o valor do id que acabou de ser inserido
+
     mysqli_stmt_close($comando);
-    return $funcionou;
+
+    return $idcliente;
 };
 
 function editarCliente($conexao, $nome, $cpf, $endereco, $idcliente) {
@@ -49,7 +53,7 @@ function editarCliente($conexao, $nome, $cpf, $endereco, $idcliente) {
     $funcionou = mysqli_stmt_execute($comando);
     
     mysqli_stmt_close($comando);
-    return $funcionou;
+    return $funcionou; // funcionou é verdadeiro ou falso p ver se funcionou ou nao , ja que é true or false da pra fazer um if
 };
 
 function deletarProduto($conexao, $idproduto) {    
@@ -117,7 +121,18 @@ function salvarUsuario($conexao, $nome, $email, $senha) {
     mysqli_stmt_close($comando);
     return $funcionou;};
 
-function salvarVenda() {};
+function salvarVenda($conexao, $valor_total, $data) {
+    $sql = "INSERTO INTO tb_venda (valor_total, data) VALUES (?, ?)";
+    $comando = mysqli_prepare ($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'ds', $valor_total, $data);
+
+    $funcionou = mysqli_stmt_execute ($comando);
+
+
+
+
+};
 
 // retornar uma variável com todos os dados do cliente
 function pesquisarClienteId() {};
