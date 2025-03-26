@@ -52,11 +52,45 @@ function editarCliente($conexao, $nome, $cpf, $endereco, $idcliente) {
     return $funcionou;
 };
 
-function deletarProduto($conexao, $idproduto) {};
+function deletarProduto($conexao, $idproduto) {    
+    $sql = "DELETE FROM tb_produto WHERE idproduto = ?";
+    $comando = mysqli_prepare($conexao, $sql);
 
-function listarProdutos() {};
+    mysqli_stmt_bind_param($comando, 'i', $idproduto);
+    $funcionou = mysqli_stmt_execute($comando);
 
-function salvarProduto() {};
+    mysqli_stmt_close($comando);
+    
+    return $funcionou; //true ou false};
+}
+
+function listarProdutos($conexao) {
+    $sql = "SELECT * FROM tb_produto";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_execute($comando); 
+    $resultado = mysqli_stmt_get_result($comando);
+
+    $lista_produtos = [];
+    while ($produto = mysqli_fetch_assoc($resultado)){
+        $lista_produtos[] = $produto;
+    }
+
+    mysqli_stmt_close($comando);
+    return $lista_produtos;
+}
+
+
+function salvarProduto($conexao, $nome, $tipo, $preco_compra, $preco_venda, $margem_lucro, $quantidade) {
+    $sql = "INSERT INTO tb_cliente (nome, cpf, endereco) VALUES (?, ?, ?)";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando, 'sss', $nome, $cpf, $endereco);
+    
+    $funcionou = mysqli_stmt_execute($comando);
+    
+    mysqli_stmt_close($comando);
+    return $funcionou;};
 
 function editarProduto() {};
 ?>
