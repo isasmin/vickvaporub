@@ -40,20 +40,23 @@ function salvarCliente($conexao, $nome, $cpf, $endereco) {
     return $funcionou;
 };
 
-function deletarProduto($conexao, $idproduto) {
-    $sql = "DELETE FROM tb_produto WHERE idproduto = ?";
+function editarCliente($conexao, $nome, $cpf, $endereco, $idcliente) {
+    $sql = "UPDATE tb_cliente SET nome=?, cpf=?, endereco=? WHERE idcliente=?";
     $comando = mysqli_prepare($conexao, $sql);
-
-    mysqli_stmt_bind_param($comando, 'i', $idproduto);
-    $funcionou = mysqli_stmt_execute($comando);
-
-    mysqli_stmt_close($comando);
     
-    return $funcionou; //true ou false
-
+    mysqli_stmt_bind_param($comando, 'sssi', $nome, $cpf, $endereco, $idcliente);
+    
+    $funcionou = mysqli_stmt_execute($comando);
+    
+    mysqli_stmt_close($comando);
+    return $funcionou;
 };
+
+function deletarProduto($conexao, $idproduto) {};
 
 function listarProdutos() {};
 
 function salvarProduto() {};
+
+function editarProduto() {};
 ?>

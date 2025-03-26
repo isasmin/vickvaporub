@@ -9,17 +9,17 @@
     $resultado = mysqli_query($conexao, $sql);
 
     if (mysqli_num_rows($resultado) == 0) {
-        header("Location: ../public/index.php");
+        header("Location: index.php");
     }
     else {
         $linha = mysqli_fetch_array($resultado);
         $senha_banco = $linha['senha'];
 
         if (password_verify($senha, $senha_banco)) {
-            header("Location: ../public/home.php");
+            header("Location: home.php");
         }
         else {
-            header("Location: ../public/index.php");
+            header("Location: index.php");
         }
     }
 ?>

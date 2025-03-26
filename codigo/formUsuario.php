@@ -6,15 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="../controle/salvarProduto.php" method="POST">
+    <form action="salvarUsuario.php" method="post">
         Nome: <br>
         <input type="text" name="nome"> <br><br>
-        Tipo: <br>
-        <input type="text" name="tipo"> <br><br>
-        Preço de Compra: <br>
-        <input type="text" name="preco_compra"> <br><br>
-        Quantidade: <br>
-        <input type="text" name="quantidade"> <br><br>
+        E-mail: <br>
+        <input type="text" name="email"> <br><br>
+        Senha: <br>
+        <input type="text" name="senha"> <br><br>
 
         <input type="submit" value="Cadastrar">
     </form>
