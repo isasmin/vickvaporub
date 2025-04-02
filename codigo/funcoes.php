@@ -10,7 +10,7 @@ function deletarCliente($conexao, $idcliente) {
     mysqli_stmt_close($comando);
     
     return $funcionou; //true ou false
-}
+};
 
 function listarClientes($conexao) {
     $sql = "SELECT * FROM tb_cliente";
@@ -26,7 +26,7 @@ function listarClientes($conexao) {
 
     mysqli_stmt_close($comando);
     return $lista_clientes;
-}
+};
 
 function salvarCliente($conexao, $nome, $cpf, $endereco) {
     $sql = "INSERT INTO tb_cliente (nome, cpf, endereco) VALUES (?, ?, ?)";
@@ -66,7 +66,7 @@ function deletarProduto($conexao, $idproduto) {
     mysqli_stmt_close($comando);
     
     return $funcionou; //true ou false};
-}
+};
 
 function listarProdutos($conexao) {
     $sql = "SELECT * FROM tb_produto";
@@ -82,7 +82,7 @@ function listarProdutos($conexao) {
 
     mysqli_stmt_close($comando);
     return $lista_produtos;
-}
+};
 
 
 function salvarProduto($conexao, $nome, $tipo, $preco_compra, $preco_venda, $margem_lucro, $quantidade) {
@@ -94,7 +94,8 @@ function salvarProduto($conexao, $nome, $tipo, $preco_compra, $preco_venda, $mar
     $funcionou = mysqli_stmt_execute($comando);
     
     mysqli_stmt_close($comando);
-    return $funcionou;};
+    return $funcionou;
+};
 
 
 function editarProduto($conexao, $nome, $tipo, $preco_compra, $preco_venda, $margem_lucro, $quantidade) {   
@@ -106,7 +107,8 @@ function editarProduto($conexao, $nome, $tipo, $preco_compra, $preco_venda, $mar
     $funcionou = mysqli_stmt_execute($comando);
         
     mysqli_stmt_close($comando);
-    return $funcionou;};
+    return $funcionou;
+};
 
 //desafio
 function salvarUsuario($conexao, $nome, $email, $senha) {
@@ -118,31 +120,108 @@ function salvarUsuario($conexao, $nome, $email, $senha) {
 
     $funcionou = mysqli_stmt_execute($comando);
 
+   mysqli_stmt_close($comando);
+    return $funcionou;
+};
+ 
+function salvarVenda($conexao, $idcliente, $idproduto, $valor_total, $data) {
+    $sql = "INSERT INTO tb_venda (idcliente, idproduto, valor_total, data) VALUES (?, ?, ?, ?)";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'iids', $idcliente, $idproduto, $valor_total, $data);
+
+    $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
-    return $funcionou;};
-
-function salvarVenda($conexao, $valor_total, $data) {
-    $sql = "INSERTO INTO tb_venda (valor_total, data) VALUES (?, ?)";
-    $comando = mysqli_prepare ($conexao, $sql);
-
-    mysqli_stmt_bind_param($comando, 'ds', $valor_total, $data);
-
-    $funcionou = mysqli_stmt_execute ($comando);
-
-
-
-
+    
+    return $funcionou;
 };
 
 // retornar uma variável com todos os dados do cliente
-function pesquisarClienteId() {};
+function pesquisarClienteId($conexao, $idcliente) {
+    $sql = "SELECT * FROM tb_cliente WHERE idcliente = ?";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'i', $idcliente);
+
+    mysqli_stmt_execute($comando);
+    $resultado = mysqli_stmt_get_result($comando);
+
+    $cliente = mysqli_fetch_assoc($resultado);
+
+    mysqli_stmt_close($comando);
+    return $cliente;
+};
 
 // retornar uma variável com todos os dados do produto
-function pesquisarProdutoId() {};
+function pesquisarProdutoId($conexao, $idproduto) {
+    $sql = "SELECT * FROM tb_produto WHERE idproduto = ?";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'i', $idproduto);
+
+    mysqli_stmt_execute($comando);
+    $resultado = mysqli_stmt_get_result($comando);
+
+    $produto = mysqli_fetch_assoc($resultado);
+
+    mysqli_stmt_close($comando);
+    return $produto;
+};
 
 //mostrar o nome do cliente ao invés do id
 //mostrar o nome do produto ao invés do id
-function listarVendas() {};
+
+function listarVendas($conexao) {
+    // seleciona as vendas
+    $sql = "SELECT * FROM tb_venda";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_execute($comando);
+    $resultado = mysqli_stmt_get_result($comando);
+
+    
+    $vendas = [];
+    while ($venda = mysqli_fetch_assoc($resultado)) {
+        // busca o nome do cliente
+        $clienteS = "SELECT nome FROM tb_cliente WHERE idcliente = {$venda['idcliente']}";
+        $cliente_resultado = mysqli_query($conexao, $clienteS);
+        $cliente = mysqli_fetch_assoc($cliente_resultado);
+        
+        // busca o nome do produto
+        $produtoS = "SELECT nome FROM tb_produto WHERE idproduto = {$venda['idproduto']}";
+        $produto_resultado = mysqli_query($conexao, $produtoS);
+        $produto = mysqli_fetch_assoc($produto_resultado);
+
+        // adiciona dados p venda
+        $venda['nome_cliente'] = $cliente['nome'];
+        $venda['nome_produto'] = $produto['nome'];
+
+        // adiciona venda p lista
+        $vendas[] = $venda;
+    }
+    mysqli_stmt_close($comando);
+    return $vendas;
+}
+
+
+//function listarVendas($conexao)    $sql = "SELECT * FROM tb_venda";
+   // $comando = mysqli_prepare($conexao, $sql);
+
+    //mysqli_stmt_execute($comando); 
+   // $resultado = mysqli_stmt_get_result($comando);
+
+   // $lista_vendas = [];
+  //  while ($vendas = mysqli_fetch_assoc($resultado)){
+   //     $lista_vendas[] = $vendas;
+   // }
+
+  //  mysqli_stmt_close($comando);
+  //  return $lista_vendas;
+//};
 ?>
  
-?>
+ 
+
+
+
+ 
