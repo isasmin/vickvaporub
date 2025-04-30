@@ -241,13 +241,13 @@ function listarVendas($conexao) {
         $cliente = mysqli_fetch_assoc($cliente_resultado);
         
         // busca o nome do produto
-        $produtoS = "SELECT nome FROM tb_produto WHERE id_produto = {$venda['idproduto']}";
-        $produto_resultado = mysqli_query($conexao, $produtoS);
-        $produto = mysqli_fetch_assoc($produto_resultado);
+        // $produtoS = "SELECT nome FROM tb_produto WHERE idproduto = {$venda['idproduto']}";
+        // $produto_resultado = mysqli_query($conexao, $produtoS);
+        // $produto = mysqli_fetch_assoc($produto_resultado);
 
         // adiciona dados p venda
         $venda['nome_cliente'] = $cliente['nome'];
-        $venda['nome_produto'] = $produto['nome'];
+        // $venda['nome_produto'] = $produto['nome'];
 
         // adiciona venda p lista
         $vendas[] = $venda;
