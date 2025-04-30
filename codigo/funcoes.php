@@ -124,17 +124,30 @@ function salvarUsuario($conexao, $nome, $email, $senha) {
     return $funcionou;
 };
  
-function salvarVenda($conexao, $idcliente, $idproduto, $valor_total, $data) {
-    $sql = "INSERT INTO tb_venda (idcliente, idproduto, valor_total, data) VALUES (?, ?, ?, ?)";
+// function salvarVenda($conexao, $idcliente, $idproduto, $valor_total, $data) {
+    // $sql = "INSERT INTO tb_venda (idcliente, idproduto, valor_total, data) VALUES (?, ?, ?, ?)";
+    // $comando = mysqli_prepare($conexao, $sql);
+
+    // mysqli_stmt_bind_param($comando, 'iids', $idcliente, $idproduto, $valor_total, $data);
+
+    // $funcionou = mysqli_stmt_execute($comando);
+    // mysqli_stmt_close($comando);
+    
+    // return $funcionou;
+// };
+
+function salvarItemVenda($conexao, $id_venda, $id_produto, $quantidade) {
+    $sql = "INSERT INTO tb_item_venda (idvenda, idproduto, quantidade) VALUES (?, ?, ?)";
+
     $comando = mysqli_prepare($conexao, $sql);
 
-    mysqli_stmt_bind_param($comando, 'iids', $idcliente, $idproduto, $valor_total, $data);
+    mysqli_stmt_bind_param($comando, 'iid', $id_venda, $id_produto, $quantidade);
 
     $funcionou = mysqli_stmt_execute($comando);
     mysqli_stmt_close($comando);
-    
+
     return $funcionou;
-};
+}
 
 // retornar uma variável com todos os dados do cliente
 function pesquisarClienteId($conexao, $idcliente) {
