@@ -124,17 +124,21 @@ function salvarUsuario($conexao, $nome, $email, $senha) {
     return $funcionou;
 };
  
-// function salvarVenda($conexao, $idcliente, $idproduto, $valor_total, $data) {
-    // $sql = "INSERT INTO tb_venda (idcliente, idproduto, valor_total, data) VALUES (?, ?, ?, ?)";
-    // $comando = mysqli_prepare($conexao, $sql);
+function salvarVenda($conexao, $idcliente, $valor_total, $data) {
+    $sql = "INSERT INTO tb_venda (idcliente, valor_total, data) VALUES (?, ?, ?)";
+    $comando = mysqli_prepare($conexao, $sql);
 
-    // mysqli_stmt_bind_param($comando, 'iids', $idcliente, $idproduto, $valor_total, $data);
+    mysqli_stmt_bind_param($comando, 'ids', $idcliente, $valor_total, $data);
 
-    // $funcionou = mysqli_stmt_execute($comando);
-    // mysqli_stmt_close($comando);
+    $funcionou = mysqli_stmt_execute($comando);
+
+    // retorna o valor do id que acabou de ser inserido
+    $idvenda = mysqli_stmt_insert_id($comando);
     
-    // return $funcionou;
-// };
+    mysqli_stmt_close($comando);
+    
+    return $idvenda;
+};
 
 function salvarItemVenda($conexao, $id_venda, $id_produto, $quantidade) {
     $sql = "INSERT INTO tb_item_venda (idvenda, idproduto, quantidade) VALUES (?, ?, ?)";
