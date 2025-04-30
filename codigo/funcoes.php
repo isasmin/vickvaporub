@@ -142,7 +142,6 @@ function salvarVenda($conexao, $idcliente, $valor_total, $data) {
 
 function salvarItemVenda($conexao, $id_venda, $id_produto, $quantidade) {
     $sql = "INSERT INTO tb_item_venda (idvenda, idproduto, quantidade) VALUES (?, ?, ?)";
-
     $comando = mysqli_prepare($conexao, $sql);
 
     mysqli_stmt_bind_param($comando, 'iid', $id_venda, $id_produto, $quantidade);
@@ -152,6 +151,43 @@ function salvarItemVenda($conexao, $id_venda, $id_produto, $quantidade) {
 
     return $funcionou;
 }
+
+
+
+
+
+
+// function listarVendas($conexao) {
+    // seleciona as vendas
+    // $sql = "SELECT * FROM tb_venda";
+    // $comando = mysqli_prepare($conexao, $sql);
+
+    // mysqli_stmt_execute($comando);
+    // $resultado = mysqli_stmt_get_result($comando);
+
+    
+    // $vendas = [];
+    // while ($venda = mysqli_fetch_assoc($resultado)) {
+        // busca o nome do cliente
+        // $clienteS = "SELECT nome FROM tb_cliente WHERE idcliente = {$venda['idcliente']}";
+        // $cliente_resultado = mysqli_query($conexao, $clienteS);
+        // $cliente = mysqli_fetch_assoc($cliente_resultado);
+        
+        // busca o nome do produto
+        // $produtoS = "SELECT nome FROM tb_produto WHERE idproduto = {$venda['idproduto']}";
+        // $produto_resultado = mysqli_query($conexao, $produtoS);
+        // $produto = mysqli_fetch_assoc($produto_resultado);
+
+        // adiciona dados p venda
+        // $venda['nome_cliente'] = $cliente['nome'];
+        // $venda['nome_produto'] = $produto['nome'];
+
+        // adiciona venda p lista
+        // $vendas[] = $venda;
+    // }
+    // mysqli_stmt_close($comando);
+    // return $vendas;
+// }
 
 // retornar uma variável com todos os dados do cliente
 function pesquisarClienteId($conexao, $idcliente) {
@@ -205,7 +241,7 @@ function listarVendas($conexao) {
         $cliente = mysqli_fetch_assoc($cliente_resultado);
         
         // busca o nome do produto
-        $produtoS = "SELECT nome FROM tb_produto WHERE idproduto = {$venda['idproduto']}";
+        $produtoS = "SELECT nome FROM tb_produto WHERE id_produto = {$venda['idproduto']}";
         $produto_resultado = mysqli_query($conexao, $produtoS);
         $produto = mysqli_fetch_assoc($produto_resultado);
 
