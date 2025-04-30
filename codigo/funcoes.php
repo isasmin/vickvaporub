@@ -157,37 +157,6 @@ function salvarItemVenda($conexao, $id_venda, $id_produto, $quantidade) {
 
 
 
-// function listarVendas($conexao) {
-    // seleciona as vendas
-    // $sql = "SELECT * FROM tb_venda";
-    // $comando = mysqli_prepare($conexao, $sql);
-
-    // mysqli_stmt_execute($comando);
-    // $resultado = mysqli_stmt_get_result($comando);
-
-    
-    // $vendas = [];
-    // while ($venda = mysqli_fetch_assoc($resultado)) {
-        // busca o nome do cliente
-        // $clienteS = "SELECT nome FROM tb_cliente WHERE idcliente = {$venda['idcliente']}";
-        // $cliente_resultado = mysqli_query($conexao, $clienteS);
-        // $cliente = mysqli_fetch_assoc($cliente_resultado);
-        
-        // busca o nome do produto
-        // $produtoS = "SELECT nome FROM tb_produto WHERE idproduto = {$venda['idproduto']}";
-        // $produto_resultado = mysqli_query($conexao, $produtoS);
-        // $produto = mysqli_fetch_assoc($produto_resultado);
-
-        // adiciona dados p venda
-        // $venda['nome_cliente'] = $cliente['nome'];
-        // $venda['nome_produto'] = $produto['nome'];
-
-        // adiciona venda p lista
-        // $vendas[] = $venda;
-    // }
-    // mysqli_stmt_close($comando);
-    // return $vendas;
-// }
 
 // retornar uma variável com todos os dados do cliente
 function pesquisarClienteId($conexao, $idcliente) {
@@ -256,25 +225,91 @@ function listarVendas($conexao) {
     return $vendas;
 }
 
+function listarVendass($conexao) {
+    // Consulta todas as vendas
+    $sql = "SELECT * FROM tb_venda";
+    $comando = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_execute($comando);
+    $resultado = mysqli_stmt_get_result($comando);
 
-//function listarVendas($conexao)    $sql = "SELECT * FROM tb_venda";
-   // $comando = mysqli_prepare($conexao, $sql);
+    $vendas = [];
 
-    //mysqli_stmt_execute($comando); 
-   // $resultado = mysqli_stmt_get_result($comando);
+    while ($venda = mysqli_fetch_assoc($resultado)) {
+        // Buscar nome do cliente
+        $sqlCliente = "SELECT nome FROM tb_cliente WHERE idcliente = ?";
+        $stmtCliente = mysqli_prepare($conexao, $sqlCliente);
+        mysqli_stmt_bind_param($stmtCliente, 'i', $venda['idcliente']);
+        mysqli_stmt_execute($stmtCliente);
+        $resCliente = mysqli_stmt_get_result($stmtCliente);
+        $cliente = mysqli_fetch_assoc($resCliente);
+        $venda['nome_cliente'] = $cliente['nome'] ?? 'Cliente não encontrado';
 
-   // $lista_vendas = [];
-  //  while ($vendas = mysqli_fetch_assoc($resultado)){
-   //     $lista_vendas[] = $vendas;
-   // }
+        // Buscar os itens dessa venda
+        $sqlItens = "
+            SELECT iv.quantidade, 
+                   p.nome AS nome_produto, 
+                   p.preco_venda, 
+                   (iv.quantidade * p.preco_venda) AS total_item
+            FROM tb_item_venda iv
+            JOIN tb_produto p ON p.idproduto = iv.idproduto
+            WHERE iv.idvenda = ?
+        ";
+        $stmtItens = mysqli_prepare($conexao, $sqlItens);
+        mysqli_stmt_bind_param($stmtItens, 'i', $venda['idvenda']);
+        mysqli_stmt_execute($stmtItens);
+        $resItens = mysqli_stmt_get_result($stmtItens);
 
-  //  mysqli_stmt_close($comando);
-  //  return $lista_vendas;
-//};
+        $venda['itens'] = [];
+        while ($item = mysqli_fetch_assoc($resItens)) {
+            $venda['itens'][] = $item;
+        }
+
+        $vendas[] = $venda;
+    }
+
+    mysqli_stmt_close($comando);
+    return $vendas;
+}
+
+
+
+
+ 
+function listarItemVenda($conexao) {
+    $sql = "SELECT * FROM tb_item_venda";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_execute($comando); 
+    $resultado = mysqli_stmt_get_result($comando);
+
+    $lista_item_venda = [];
+    while ($item_venda= mysqli_fetch_assoc($resultado)){
+        $lista_item_venda[] = $item_venda;
+    }
+
+    mysqli_stmt_close($comando);
+    return $lista_item_venda;
+};
+
 ?>
- 
- 
+
+ <!-- tb_venda -->
+ <!-- idvenda INT  -->
+ <!-- idcliente INT (estrangeira) -->
+ <!-- valor_total DECIMAL -->
+ <!-- data deletarCliente -->
 
 
+ <!-- tb_item_venda (tabela n:n de tb_venda e tb_produto) -->
+ <!-- idvenda INT (estrangeira) -->
+ <!-- idproduto INT (estrangeira) -->
+ <!-- quantidade DECIMAL -->
 
- 
+ <!-- tb_produto -->
+ <!-- idproduto INT -->
+ <!-- nome -->
+ <!-- tipo -->
+ <!-- preco_compra -->
+ <!-- preco_venda -->
+ <!-- margem_lucro -->
+ <!-- quantidade -->
