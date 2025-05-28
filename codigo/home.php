@@ -20,6 +20,8 @@
         <li>
             <a href="listarProdutos.php">Lista de produtos cadastrados</a>
         </li>
+        <li>
+            <a href="listarProcessoVenda.php"> Cadastro do Processo de Venda</a></li>
     </ul>
 </body>
 </html>
