@@ -43,7 +43,7 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
-    <h1>Cadastro de Produto</h1>
+    <h1>Cadastro de Produto </h1>
     <form action="salvarProduto.php?id=<?php echo $id; ?>" method="post">
         Nome: <br>
         <input type="text" name="nome" value="<?php echo $nome; ?>"> <br><br>

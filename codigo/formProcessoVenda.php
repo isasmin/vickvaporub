@@ -1,41 +1,51 @@
-
-<?php
-require_once "conexao.php";
-require_once "funcoes.php";
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro da Venda</title>
+    <title>Document</title>
 </head>
 <body>
-    <h3>Cadastro da Venda</h3>
-    <form action="salvarVenda.php" method="get">
+    <form action="salvarVenda.php">
+        cliente: <br>
+        <select name="idcliente">
+        <?php
+            require_once "conexao.php";
+            require_once "funcoes.php";
 
-             <?php
-             
-             $sql = "SELECT idcliente, nome FROM tb_cliente";
-             $resultados = mysqli_query($conexao, $sql);
-             
-             ?>
-             
-             <label for="cliente">Selecione o cliente</label>
-             <select name="pais" id="pais">
-                 <option value="">Selecione...</option>
+            $lista_clientes = listarClientes($conexao);
 
-                 <?php
-                 while ($linha = mysqli_fetch_array($resultados)) {
-                        $id2 = $linha['idcliente'];
-                        $nome = $linha['nome'];
+            foreach ($lista_clientes as $cliente) {
+                $idcliente = $cliente['idcliente'];
+                $nome = $cliente['nome'];
 
-                        if ($id2 == $cliente) {
-                            $selecionado = 'selected';
-                        } else {
-                            $selecionado = '';
-                        }
+                echo "<option value='$idcliente'>$nome</option>";
+            }
+        ?>
+        </select>
+        
+        <br><br>
 
-                        echo "<option value='$id2' $selecionado>$nome</option>";
-                    }
-                 ?>
+        valor : <br>
+        <input type="text" name="valor"><br><br>
+
+        data: <br>
+        <input type="date" name="data"><br><br>
+
+        Produtos: <br>
+        <?php
+            $lista_produtos = listarProdutos($conexao);
+
+            foreach ($lista_produtos as $produto) {
+                $idproduto = $produto['idproduto'];
+                $nome = $produto['nome'];
+
+                echo "<input type='checkbox' value='$idproduto' name='idproduto[]'>$nome ";
+                echo "<input type='text' name='???'><br>";
+            }
+        ?>
+        <br>
+        <input type="submit" value="Registrar Venda">
+    </form>
+</body>
+</html>
