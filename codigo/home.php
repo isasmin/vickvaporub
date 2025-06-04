@@ -25,3 +25,21 @@
     </ul>
 </body>
 </html>
+<?php
+include("conexao.php");
+
+$sql = "SELECT * FROM paises";
+$result = mysqli_query($conn, $sql);
+?>
+
+<label for="pais">Selecione seu país:</label>
+<select name="pais" id="pais">
+    <option value="">Selecione...</option>
+
+    <?php
+    while($linha = mysqli_fetch_array($result)){
+        echo "<option value='" . $linha['id'] . "'>" . $linha['nome'] . "</option>";
+    }
+    ?>
+
+</select>
