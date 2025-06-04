@@ -14,17 +14,19 @@ require_once "funcoes.php";
     <h3>Cadastro da Venda</h3>
     <form action="salvarVenda.php" method="get">
 
-         <label for="cliente" class="form-label">Cliente</label>
-         <select name="cliente">
              <?php
-                  
-                require_once "conexao.php";
-                
-                    $sql = "SELECT idcliente, nome FROM cliente";
-                    $resultados = mysqli_query($conexao, $sql);
+             
+             $sql = "SELECT idcliente, nome FROM tb_cliente";
+             $resultados = mysqli_query($conexao, $sql);
+             
+             ?>
+             
+             <label for="cliente">Selecione o cliente</label>
+             <select name="pais" id="pais">
+                 <option value="">Selecione...</option>
 
-                    // Loop para listar todos os clientes
-                    while ($linha = mysqli_fetch_array($resultados)) {
+                 <?php
+                 while ($linha = mysqli_fetch_array($resultados)) {
                         $id2 = $linha['idcliente'];
                         $nome = $linha['nome'];
 
@@ -36,31 +38,4 @@ require_once "funcoes.php";
 
                         echo "<option value='$id2' $selecionado>$nome</option>";
                     }
-                    ?>
-                </select>
-            </div><br>
-
-
-        Data: <input type='date' name='data'><br><br>
-
-    <?php
-    $lista_produtos = listarProdutos($conexao);
-
-    foreach($lista_produtos as $produto){
-        $nome = $produto['nome'];
-        $id = $produto ['idproduto'];
-
-        echo "<input type='checkbox' name='produto[]' value='$id'> $nome";
-        echo "<input type='text' name='?'><br>";
-
-    }   
-   
-    ?>
-
-    <input type="submit" value="enviar">
-
-</body>
-</html>
-
-
-
+                 ?>

@@ -21,25 +21,7 @@
             <a href="listarProdutos.php">Lista de produtos cadastrados</a>
         </li>
         <li>
-            <a href="listarProcessoVenda.php"> Cadastro do Processo de Venda</a></li>
+            <a href="formProcessoVenda.php"> Cadastro do Processo de Venda</a></li>
     </ul>
 </body>
 </html>
-<?php
-include("conexao.php");
-
-$sql = "SELECT * FROM paises";
-$result = mysqli_query($conn, $sql);
-?>
-
-<label for="pais">Selecione seu país:</label>
-<select name="pais" id="pais">
-    <option value="">Selecione...</option>
-
-    <?php
-    while($linha = mysqli_fetch_array($result)){
-        echo "<option value='" . $linha['id'] . "'>" . $linha['nome'] . "</option>";
-    }
-    ?>
-
-</select>
