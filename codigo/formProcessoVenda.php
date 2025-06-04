@@ -12,7 +12,7 @@
         <?php
             require_once "conexao.php";
             require_once "funcoes.php";
-
+               
             $lista_clientes = listarClientes($conexao);
 
             foreach ($lista_clientes as $cliente) {
