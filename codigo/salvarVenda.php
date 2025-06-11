@@ -1,11 +1,11 @@
 <?php
-require_once "../funcoes.php";
-require_once "../conexao.php";
+require_once "./funcoes.php";
+require_once "./conexao.php";
 
-$idcliente = $_POST["idcliente"];
-$valor_total = $_POST["valor"];
-$data = $_POST["data"];
-$produtos = $_POST["produto"];
+$idcliente = $_GET["idcliente"];
+$valor_total = $_GET["valor"];
+$data = $_GET["data"];
+$produtos = $_GET["produto"];
 $id_venda = salvarVenda($conexao, $idcliente, $valor_total, $data);
 
 for ($i = 0; $i < count($produtos); $i++) {
