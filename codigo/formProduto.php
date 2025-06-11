@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
     $sql = "SELECT * FROM tb_produto WHERE idproduto = $id";
 
     $resultados = mysqli_query($conexao, $sql);
-
+    
     $linha = mysqli_fetch_array($resultados);
 
     //porque não tem a variável do $id aqui?

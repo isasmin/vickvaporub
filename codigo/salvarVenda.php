@@ -5,7 +5,7 @@ require_once "./conexao.php";
 $idcliente = $_GET["idcliente"];
 $valor_total = $_GET["valor"];
 $data = $_GET["data"];
-$produtos = $_GET["produto"];
+$produtos = $_GET["produtos"];
 $id_venda = salvarVenda($conexao, $idcliente, $valor_total, $data);
 
 for ($i = 0; $i < count($produtos); $i++) {
